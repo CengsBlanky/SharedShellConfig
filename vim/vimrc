@@ -1,0 +1,135 @@
+" vim-plug manager {{{
+call plug#begin()
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'}
+Plug 'itchyny/lightline.vim'
+" Plug 'NLKNguyen/papercolor-theme'
+Plug 'Valloric/YouCompleteMe'
+Plug 'morhetz/gruvbox'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'jiangmiao/auto-pairs'
+call plug#end()
+" }}}
+" Default Settings {{{
+let mapleader=","
+let maplocalleader=","
+filetype plugin on
+filetype plugin indent on
+packadd! matchit
+set mouse=a
+set showcmd " show normal mode cmd in statusline
+set nocompatible
+set noshowmode
+set cmdheight=2
+set encoding=utf-8
+set laststatus=2	" Always display the status bar
+set noerrorbells visualbell t_vb=	" Disable beep on errors and window flash
+set noswapfile		" Disable swap file
+set nobackup        " Disable backup file
+set wildmenu		" Turn on the wildmenu
+set incsearch		" Makes search act like search in modern browers
+set showmatch		" Show matching brackets when text indicator is over them
+set history=200     " remember the latest 200 cmd line
+set hidden          " allow switch between buffer without warning
+" }}}
+" General Indention Configuration {{{
+set autoindent
+set expandtab		" convert tabs to spaces
+set shiftround
+set shiftwidth=4
+set smarttab        " Inset 'tabstop' number of spaces when 'tab' key is pressed
+set tabstop=4		" Indent using 4 spaces
+" }}}
+" Default Search Options {{{
+set hlsearch		" Enable search highlighting
+set smartcase		" Automatically switch search to case-sensitive when search query contains an uppercase letter
+" }}}
+" Text Edit Options {{{
+set linebreak		" Avoid wrapping a line in the middle of a word
+set nowrap          " default no wrap line
+set number		    " Show line numbers on the sidebar
+set relativenumber	" Show line numbers on the current line and relative numbers on all other lines
+set ruler		    " Always show cursor position
+set wildmenu		" Display command line's tab complete options as s menu
+set autoread		" Automatically re-read files if unmodified inside vim
+set backspace=2     " Allow backspacing over indention, line breaks and insertion start
+set formatoptions+=j	" Delete comment characters when joining lines
+" }}}
+" key mappings and abbreviation {{{
+inoremap jk <esc>
+" open $MYVIMRC
+nnoremap <Leader>ev :e $MYVIMRC<cr>
+" when enter %% in cmdline, expand it as current directory path
+cnoremap <expr> %% getcmdtype()==':'?expand('%:h').'/':'%%'
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+iabbrev my@ zengs1994@gmail.com
+" }}}
+" Appearance {{{
+syntax enable
+set cursorline		" Highlight the line currently under cursor
+set background=dark	" Use colors that suit a dark background
+let g:lightline = {
+      \ 'colorscheme': 'Tomorrow_Night_Bright',
+      \ }
+" Color scheme
+colorscheme gruvbox
+" show different cursor shape in defenrent mode
+let &t_SI.="\e[5 q" "SI = INSERT mode
+let &t_SR.="\e[4 q" "SR = REPLACE mode
+let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
+" }}}
+" Vimscript file settings {{{
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+    autocmd FileType vim nnoremap <Leader>/ I"<space><esc>
+augroup END
+" }}}
+" c file settings {{{
+augroup filetype_c
+    autocmd!
+    " <bar> refers to "|", and % refers to current file, %:r refers to current
+    " file name without last extention(eg: foo.c without .c which is foo)
+    autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+augroup END
+" }}}
+" html file settings {{{
+augroup filetype_html
+    autocmd!
+    autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+    autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+    autocmd FileType html setlocal nowrap
+augroup END
+" }}}
+" javascript file settings {{{
+augroup filetype_javascript
+    autocmd!
+    autocmd FileType javascript :iabbrev <buffer> iff if ()<left>
+    autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
+    autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+augroup END
+" }}}
+" python file settings {{{
+augroup filetype_python
+    autocmd!
+    autocmd FileType python nnoremap <buffer> <localleader>c I# <esc>
+    autocmd FileType python :iabbrev <buffer> iff if :<left>
+augroup END
+" }}}
+" YCM configuration {{{
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_autoclose_preview_window_after_insertion=1
+" }}}
+" plugin vim-snippets configuration {{{
+" Trigger configuration. You need to change this to something other than <tab>
+" if you use one of the following:
+" " - https://github.com/Valloric/YouCompleteMe
+" " - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-p>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"
+" " If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+" }}}
