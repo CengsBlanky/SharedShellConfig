@@ -9,6 +9,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'}
 Plug 'morhetz/gruvbox'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
+Plug 'qpkorr/vim-renamer'
 call plug#end()
 " }}}
 " basic setting {{{
@@ -30,6 +31,9 @@ set laststatus=2
 set wildmenu
 set showmatch
 set confirm
+" only necessary in Windows enter :Vb to enter V-BLOCK mode
+command! Vb normal! <C-v>
+
 " }}}
 " filetype setting {{{
 augroup filetype_vim
