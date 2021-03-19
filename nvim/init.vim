@@ -31,8 +31,9 @@ set laststatus=2
 set wildmenu
 set showmatch
 set confirm
-" only necessary in windows
+" only necessary in Windows enter :Vb to enter V-BLOCK mode
 command! Vb normal! <C-v>
+
 " }}}
 " filetype setting {{{
 augroup filetype_vim
