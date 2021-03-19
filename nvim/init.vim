@@ -1,14 +1,6 @@
 " nvim plug {{{
-call plug#begin('~/.vim/vendor')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} 
-Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} 
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -17,6 +9,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'}
 Plug 'morhetz/gruvbox'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
+Plug 'qpkorr/vim-renamer'
 call plug#end()
 " }}}
 " basic setting {{{
@@ -38,6 +31,8 @@ set laststatus=2
 set wildmenu
 set showmatch
 set confirm
+" only necessary in windows
+command! Vb normal! <C-v>
 " }}}
 " filetype setting {{{
 augroup filetype_vim
