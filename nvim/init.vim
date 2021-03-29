@@ -65,6 +65,13 @@ autocmd TermOpen * startinsert
 
 " use <leader>w to close current tab
 noremap <leader>w :tabclose<cr>
+" use <leader>t to go next tab
+noremap <leader>t :tabnext<cr>
+
+augroup Format-Options
+        autocmd!
+        autocmd BufEnter * setlocal formatoptions-=o
+augroup END
 
 " }}}
 " filetype setting {{{
