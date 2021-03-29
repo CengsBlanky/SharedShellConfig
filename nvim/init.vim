@@ -10,6 +10,11 @@ Plug 'morhetz/gruvbox'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'qpkorr/vim-renamer'
+" better hlsearch
+Plug 'haya14busa/incsearch.vim'
+" file management nnn
+Plug 'mcchrish/nnn.vim'
+
 call plug#end()
 " }}}
 " basic setting {{{
@@ -23,7 +28,6 @@ set nowrap
 syntax on
 set backspace=2
 set incsearch
-set hlsearch
 set noswapfile
 set tabstop=4 smarttab shiftwidth=4 expandtab autoindent shiftround
 set showcmd
@@ -31,8 +35,36 @@ set laststatus=2
 set wildmenu
 set showmatch
 set confirm
-" only necessary in Windows enter :Vb to enter V-BLOCK mode
+" only necessary in windows(enter visual block mode)
 command! Vb normal! <C-v>
+" use <leader> n to go next buffer
+noremap <leader>b :bn<cr>
+" open file in tab with keys
+noremap <C-n> :tabedit 
+
+" map <esc> to quit terminal mode
+tnoremap <Esc> <C-\><C-n>
+
+" to use `ALT+{h,j,k,l}` to navigate windows from any mode:
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
+
+" To enter |Terminal-mode| automatically:
+autocmd TermOpen * startinsert
+
+" use <leader>w to close current tab
+noremap <leader>w :tabclose<cr>
 
 " }}}
 " filetype setting {{{
@@ -41,6 +73,22 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
+" plugins setting {{{
+
+" haya14busa/incsearch.vim {{{
+
+set hlsearch
+" automatically turn off hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+
+" }}}
+
 " coc config {{{
 " Give more space for displaying messages.
 set cmdheight=2
@@ -197,6 +245,15 @@ nnoremap <silent><nowait> <space>j :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p :<C-u>CocListResume<CR>
+" }}}
+
+" nnn config{{{
+" Floating window (neovim latest and vim with patch 8.2.191)
+let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
+" replace nerdtree with nnn
+let g:nnn#replace_netrw = 1
+" }}}
+
 " }}}
 " appearance setting {{{
 colorscheme gruvbox
