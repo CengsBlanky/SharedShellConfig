@@ -7,6 +7,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/cengshuai/.oh-my-zsh"
@@ -113,6 +114,7 @@ alias ll='ls -lAh'
 alias vim='nvim'
 alias vi='nvim'
 alias vin='nvim'
+alias python="python3"
 alias pip='/usr/local/opt/python@3.9/bin/pip3'
 
 export TERM=xterm-256color
