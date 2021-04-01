@@ -18,7 +18,9 @@ SRCS=$(notdir $(Cfiles))
 
 HEADERS=$(notdir $(Hfiles))
 
-OBJECTS=$(patsubst %.c,%.o,$(SRCS))
+OBJ_DIR=./obj/
+OBJECT_FILES=$(patsubst %.c,%.o,$(SRCS))
+OBJECTS=$(addprefix $(OBJ_DIR), $(OBJECT_FILES))
 
 CFLAGS+=-I
 CFLAGS+=$(HfilesDir)
@@ -29,11 +31,10 @@ default: $(TARGET)
 all: default
 
 # rules
-%.o:%.c $(HEADERS)
+./obj/%.o:%.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 $(TARGET):$(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $@
-
 # clean
 clean:
 	rm -rf $(OBJECTS) $(TARGET)
