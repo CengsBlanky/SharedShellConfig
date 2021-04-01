@@ -1,6 +1,6 @@
 # path
 # VPATH=src include bin header obj object lib
-VPATH=include header headers src
+VPATH=include header headers src obj
 TARGET=main
 # define
 CFLAGS=-Wall
@@ -18,22 +18,34 @@ SRCS=$(notdir $(cppFiles))
 
 HEADERS=$(notdir $(Hfiles))
 
-OBJECTS=$(patsubst %.cpp,%.o,$(SRCS))
+OBJ_DIR=./obj/
+OBJECT_FILES=$(patsubst %.cpp,%.o,$(SRCS))
+OBJECTS=$(addprefix $(OBJ_DIR), $(OBJECT_FILES))
 
-searchDir+=-I
-searchDir+=./$(HfilesDir)
+# CFLAGS+=-I
+# CFLAGS+=./$(HfilesDir)
+INCLUDE_HEADERS=-I ./$(HfilesDir)
 
-.PHONY:default all clean
+CFLAGS+=--std=c++11
 
+MKDIR_P=mkdir -p
+OUT_DIR=obj
+
+.PHONY:directories default all clean 
+
+all: directories default 
+directories: ${OUT_DIR}
 default: $(TARGET)
-all: default
+
+${OUT_DIR}:
+	${MKDIR_P} ${OUT_DIR}
 
 # rules
-%.o:%.cpp $(HEADERS)
-	$(CC) $(CFLAGS) $(searchDir) -c $< -o $@
+$(OBJ_DIR)%.o:%.cpp $(HEADERS)
+	$(CC) $(CFLAGS) $(INCLUDE_HEADERS) -c $< -o $@
 $(TARGET):$(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $@
 
 # clean
 clean:
-	rm -rf $(objTempDir)$(OBJECTS) $(TARGET)
+	rm -rf $(OBJECTS) $(TARGET)
