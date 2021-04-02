@@ -14,6 +14,8 @@ Plug 'qpkorr/vim-renamer'
 Plug 'haya14busa/incsearch.vim'
 " file management nnn
 Plug 'mcchrish/nnn.vim'
+" git plugin
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 " }}}
