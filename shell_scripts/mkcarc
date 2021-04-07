@@ -1,0 +1,4 @@
+# !/bin/sh
+
+mkdir include src obj bin
+cp ~/backup/SharedShellConfig/makefiles/cMakefile ./Makefile

@@ -1,7 +1,7 @@
 # path
 # VPATH=src include bin header obj object lib
 VPATH=include header headers src
-TARGET=main
+TARGET=./bin/main
 # define
 CFLAGS=-Wall
 CC=gcc
