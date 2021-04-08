@@ -14,8 +14,10 @@ Plug 'qpkorr/vim-renamer'
 Plug 'haya14busa/incsearch.vim'
 " file management nnn
 Plug 'mcchrish/nnn.vim'
-" git plugin
-Plug 'tpope/vim-fugitive'
+" vim templates
+Plug 'tibabit/vim-templates'
+" vim comment toggle
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 " }}}
@@ -75,12 +77,20 @@ augroup Format-Options
         autocmd BufEnter * setlocal formatoptions-=o
 augroup END
 
+autocmd BufNewFile * start
+
 " }}}
 " filetype setting {{{
 augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
+
+augroup filetype_web
+    autocmd!
+    autocmd FileType html,htm,javascript,typescript,vue setlocal tabstop=2 shiftwidth=2
+augroup END
+
 " }}}
 " plugins setting {{{
 
@@ -261,6 +271,20 @@ nnoremap <silent><nowait> <space>p :<C-u>CocListResume<CR>
 let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
 " replace nerdtree with nnn
 let g:nnn#replace_netrw = 1
+" }}}
+
+" vim templates config{{{
+let g:tmpl_search_paths=['~/.config/nvim/templates']
+let g:tmpl_author_name='zengshuai'
+let g:tmpl_author_email='zengs1994@gmail.com'
+" }}}
+
+" tpope commentary config{{{
+augroup commentary_vim 
+    autocmd!
+    autocmd FileType c setlocal commentstring=//\ %s
+    autocmd FileType cpp setlocal commentstring=//\ %s
+augroup END
 " }}}
 
 " }}}
