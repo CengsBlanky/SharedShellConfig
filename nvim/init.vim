@@ -21,7 +21,10 @@ Plug 'tpope/vim-commentary'
 
 call plug#end()
 " }}}
-" basic setting {{{
+" editor setting {{{
+
+" change default settings {{{
+
 let mapleader=","
 let maplocalleader=","
 inoremap jk <esc>
@@ -39,13 +42,19 @@ set laststatus=2
 set wildmenu
 set showmatch
 set confirm
-" only necessary in windows(enter visual block mode)
-command! Vb normal! <C-v>
+
+" }}}
+" keymappings {{{
+
 " use <leader> n to go next buffer
 noremap <leader>b :bn<cr>
 " open file in tab with keys
 noremap <C-n> :tabedit 
 
+" use <leader>w to close current tab
+noremap <leader>w :tabclose<cr>
+" use <leader>t to go next tab
+noremap <leader>t :tabnext<cr>
 " map <esc> to quit terminal mode
 tnoremap <Esc> <C-\><C-n>
 
@@ -63,14 +72,17 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
+" use <f10> to compile and run single c file
+" noremap <F10> :w <cr> :!gcc % -o %< <cr>:vertical termnal ++shell ++cols=40 %<<cr> 
+" when program result shows in the window, use d to go next page and u to go
+" up page
+noremap <F10> :w <cr> :!gcc -Wall % -o %< && ./%< | copen
+
+" }}}
+" autocmd {{{
 
 " To enter |Terminal-mode| automatically:
 autocmd TermOpen * startinsert
-
-" use <leader>w to close current tab
-noremap <leader>w :tabclose<cr>
-" use <leader>t to go next tab
-noremap <leader>t :tabnext<cr>
 
 augroup Format-Options
         autocmd!
@@ -78,6 +90,14 @@ augroup Format-Options
 augroup END
 
 autocmd BufNewFile * start
+
+" }}}
+" system specified {{{
+
+" only necessary in windows(enter visual block mode)
+command! Vb normal! <C-v>
+
+" }}}
 
 " }}}
 " filetype setting {{{
