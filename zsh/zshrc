@@ -138,5 +138,7 @@ then
     alias l="ls -lAh"
 elif [ "${machine}"=="Mac" ]
 then
-    alias l="exa"
+    alias la="exa --all --long --grid"
+    alias l="exa --long"
+    alias lg="l --git"
 fi
