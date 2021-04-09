@@ -58,7 +58,7 @@ noremap <leader>t :tabnext<cr>
 " map <esc> to quit terminal mode
 tnoremap <Esc> <C-\><C-n>
 
-" to use `ALT+{h,j,k,l}` to navigate windows from any mode:
+" to use `ALT+{h,j,k,l}` to navigate windows from any mode: {{{
 tnoremap <A-h> <C-\><C-N><C-w>h
 tnoremap <A-j> <C-\><C-N><C-w>j
 tnoremap <A-k> <C-\><C-N><C-w>k
@@ -71,12 +71,19 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+" }}}
 
 " use <f10> to compile and run single c file
 " noremap <F10> :w <cr> :!gcc % -o %< <cr>:vertical termnal ++shell ++cols=40 %<<cr> 
 " when program result shows in the window, use d to go next page and u to go
 " up page
-noremap <F10> :w <cr> :!gcc -Wall % -o %< && ./%< | copen
+" noremap <f10> :w <cr> :!gcc -Wall % -o %< && ./%< | copen
+
+" }}}
+" window management {{{
+
+" set default split window
+set splitbelow splitright
 
 " }}}
 " autocmd {{{
@@ -96,6 +103,24 @@ autocmd BufNewFile * start
 
 " only necessary in windows(enter visual block mode)
 command! Vb normal! <C-v>
+
+" }}}
+" code compile and run {{{
+augroup exe_code
+    autocmd!
+    " execute python code
+    autocmd FileType python nnoremap <buffer> <localleader>r
+            \ :write<CR> :sp<CR> :term python3 %<CR>
+    " compile and run simgle c file
+    autocmd FileType c nnoremap <buffer> <localleader>r
+            \ :write<CR> :sp<CR> :term gcc -Wall % && ./a.out<CR>
+    " compile and run simgle cpp file
+    autocmd FileType cpp nnoremap <buffer> <localleader>r
+            \ :write<CR> :sp<CR> :term g++ -Wall % && ./a.out<CR>
+    " run shell script
+    autocmd FileType sh nnoremap <buffer> <localleader>r
+            \ :write<CR> :sp<CR> :term sh %<CR>
+augroup END
 
 " }}}
 
@@ -127,7 +152,24 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
 " }}}
-
+" nnn config{{{
+" Floating window (neovim latest and vim with patch 8.2.191)
+let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
+" replace nerdtree with nnn
+let g:nnn#replace_netrw = 1
+" }}}
+" vim templates config{{{
+let g:tmpl_search_paths=['~/.config/nvim/templates']
+let g:tmpl_author_name='zengshuai'
+let g:tmpl_author_email='zengs1994@gmail.com'
+" }}}
+" tpope commentary config{{{
+augroup commentary_vim 
+    autocmd!
+    autocmd FileType c setlocal commentstring=//\ %s
+    autocmd FileType cpp setlocal commentstring=//\ %s
+augroup END
+" }}}
 " coc config {{{
 " Give more space for displaying messages.
 set cmdheight=2
@@ -284,27 +326,6 @@ nnoremap <silent><nowait> <space>j :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p :<C-u>CocListResume<CR>
-" }}}
-
-" nnn config{{{
-" Floating window (neovim latest and vim with patch 8.2.191)
-let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
-" replace nerdtree with nnn
-let g:nnn#replace_netrw = 1
-" }}}
-
-" vim templates config{{{
-let g:tmpl_search_paths=['~/.config/nvim/templates']
-let g:tmpl_author_name='zengshuai'
-let g:tmpl_author_email='zengs1994@gmail.com'
-" }}}
-
-" tpope commentary config{{{
-augroup commentary_vim 
-    autocmd!
-    autocmd FileType c setlocal commentstring=//\ %s
-    autocmd FileType cpp setlocal commentstring=//\ %s
-augroup END
 " }}}
 
 " }}}
