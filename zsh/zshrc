@@ -123,20 +123,13 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home
 
 # find out which system type I am currently use
 # use system specific settings
-unameOut="$(uname -s)"
-machine="Linux"
-case "${unameOut}" in
-    Linux*)    machine=Linux;;
-    Darwin*)   machine=Mac;;
-    CYGWIN*)   machine=Cygwin;;
-    MINGW*)    machine=MinGW;;
-    *)         machine="UNKNOWN:${unameOut}"
-esac
-
-if [ "${machine}"=='Linux' ]
+sysout=$(uname -s)
+if [ "${sysout}"=="Darwin" ]
+then
+    alias la="exa --all --long --grid"
+    alias l="exa --long"
+    alias lg="l --git"
+elif [ "${sysout}"=="Linux" ]
 then
     alias l="ls -lAh"
-elif [ "${machine}"=="Mac" ]
-then
-    alias l="exa"
 fi
