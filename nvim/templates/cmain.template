@@ -4,7 +4,8 @@
  * @filename: {{FILEE}}
  */
 
+#include {{CURSOR}}
+
 int main(int argc, char *argv[]) {
-    {{CURSOR}}
     return 0;
 }
