@@ -332,4 +332,5 @@ nnoremap <silent><nowait> <space>p :<C-u>CocListResume<CR>
 " appearance setting {{{
 colorscheme gruvbox
 set noshowmode
+set colorcolumn=81
 " }}}
