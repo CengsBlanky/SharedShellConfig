@@ -1,33 +1,25 @@
-;; set init window size and font
+;; set init window size 
 (if (display-graphic-p)
     (progn
-      (setq initial-frame-alist
+	(setq default-frame-alist
             '(
-              (tool-bar-lines . 0)
-              (width . 81) ; chars
-              (height . 32) ; lines
-	      (right . 50)
-	      (top . 30)
-	      )) 
-      (setq default-frame-alist
-            '(
-              (tool-bar-lines . 0)
-              (width . 106)
-              (height . 60)
-	      (right . 50)
-	      (top . 30)
-	      )))
-  (progn
-    (setq initial-frame-alist '( (tool-bar-lines . 0)))
-    (setq default-frame-alist '( (tool-bar-lines . 0)))))
+		(tool-bar-lines . 0)
+		(width . 80) ; chars
+		(height . 36) ; lines
+		(left . 500)
+		(top . 30)
+	    )
+	) 
+    )
+)
 
 ;; ---------- font & size ----------
 (when (member "Monaco" (font-family-list))
   (set-frame-font "Monaco-14" t t))
 ;; ---------- editor apearance ----------
-(tool-bar-mode nil)
 (menu-bar-mode nil)
-(scroll-bar-mode nil)
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
 (global-linum-mode t)
 ;; ---------- highlight paired bracket ----------
 (add-hook 'emacs-lisp-mode-hook 'show-paren-mode)

@@ -1,23 +1,23 @@
+;; depress cl deprecated warning
 (setq byte-compile-warnings '(cl-functions))
 (require 'cl)
-(package-initialize)
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-
+(package-initialize)
 
  ;; package list
- (defvar my/packages '(
-		company
-		slime
-		smartparens
-		;; vim-like mode
-		evil
-		;; remap key in evil mode
-		key-chord
-		;; org mode
-		org
-		) "Default packages")
+(defvar my/packages '(
+    company
+    slime
+    smartparens
+    ;; vim-like mode
+    evil
+    ;; remap key in evil mode
+    key-chord
+    ;; org mode
+    org
+    ) "Default packages")
 
 (setq package-selected-packages my/packages)
 
