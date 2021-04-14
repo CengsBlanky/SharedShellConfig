@@ -73,12 +73,6 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 " }}}
 
-" use <f10> to compile and run single c file
-" noremap <F10> :w <cr> :!gcc % -o %< <cr>:vertical termnal ++shell ++cols=40 %<<cr> 
-" when program result shows in the window, use d to go next page and u to go
-" up page
-" noremap <f10> :w <cr> :!gcc -Wall % -o %< && ./%< | copen
-
 " }}}
 " window management {{{
 
