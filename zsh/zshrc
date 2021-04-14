@@ -16,8 +16,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="powerlevel10k/powerlevel10k"
-ZSH_THEME="bureau"
+ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -81,6 +80,11 @@ ZSH_THEME="bureau"
 
 source $ZSH/oh-my-zsh.sh
 
+# pure zsh
+autoload -U promptinit; promptinit
+# change the color for both `prompt:success` and `prompt:error`
+zstyle ':prompt:pure:prompt:*' color cyan
+prompt pure
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -124,12 +128,11 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home
 # find out which system type I am currently use
 # use system specific settings
 sysout=$(uname -s)
-if [ "${sysout}"=="Darwin" ]
+if [[ "${sysout}"=="Darwin" ]]
 then
-    alias la="exa --all --long --grid"
-    alias l="exa --long"
-    alias lg="l --git"
-elif [ "${sysout}"=="Linux" ]
+    alias la="exa --all --long --grid --links"
+    alias l="exa --long --header --links --sort=name --git"
+elif [[ "${sysout}"=="Linux" ]]
 then
     alias l="ls -lAh"
 fi
