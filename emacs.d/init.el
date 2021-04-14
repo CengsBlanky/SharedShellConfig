@@ -2,7 +2,7 @@
 
 (require 'package-init)
 (require 'editor-init)
-(require 'org-init)
 (require 'keybinding-init)
 (require 'ui-init)
 (require 'lisp-env-init)
+(require 'org-init)
