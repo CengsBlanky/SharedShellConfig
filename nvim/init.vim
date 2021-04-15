@@ -18,6 +18,8 @@ Plug 'mcchrish/nnn.vim'
 Plug 'tibabit/vim-templates'
 " vim comment toggle
 Plug 'tpope/vim-commentary'
+" git integrations for vim
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 " }}}
@@ -46,18 +48,6 @@ set confirm
 " }}}
 " keymappings {{{
 
-" use <leader> n to go next buffer
-noremap <leader>b :bn<cr>
-" open file in tab with keys
-noremap <C-n> :tabedit 
-
-" use <leader>w to close current tab
-noremap <leader>w :tabclose<cr>
-" use <leader>t to go next tab
-noremap <leader>t :tabnext<cr>
-" map <esc> to quit terminal mode
-tnoremap <Esc> <C-\><C-n>
-
 " to use `ALT+{h,j,k,l}` to navigate windows from any mode: {{{
 tnoremap <A-h> <C-\><C-N><C-w>h
 tnoremap <A-j> <C-\><C-N><C-w>j
@@ -72,6 +62,25 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 " }}}
+" use <leader> n to go next buffer
+noremap <leader>b :bn<cr>
+" open file in tab with keys
+noremap <C-n> :tabedit 
+
+" use <leader>w to close current tab
+noremap <leader>w :tabclose<cr>
+" use <leader>t to go next tab
+noremap <leader>t :tabnext<cr>
+" map <esc> to quit terminal mode
+tnoremap <Esc> <C-\><C-n>
+" use <C-u> uppercase current word
+" use <C-l> lowercase current word
+nnoremap <C-u> gUiw
+nnoremap <C-l> guiw
+" close window
+noremap <A-w> :close<cr>
+" open my vimrc file
+noremap <leader>rc :edit $MYVIMRC<cr>
 
 " }}}
 " window management {{{
@@ -163,6 +172,11 @@ augroup commentary_vim
     autocmd FileType c setlocal commentstring=//\ %s
     autocmd FileType cpp setlocal commentstring=//\ %s
 augroup END
+" }}}
+" vim airline config {{{
+" Automatically displays all buffers when there's only one tab open.
+let g:airline#extensions#tabline#enabled = 1
+
 " }}}
 " coc config {{{
 " Give more space for displaying messages.
@@ -320,6 +334,11 @@ nnoremap <silent><nowait> <space>j :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p :<C-u>CocListResume<CR>
+" }}}
+" better incsearch plugin setting {{{
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 " }}}
 
 " }}}
