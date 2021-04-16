@@ -81,6 +81,7 @@ ZSH_THEME=""
 source $ZSH/oh-my-zsh.sh
 
 # pure zsh
+fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 # change the color for both `prompt:success` and `prompt:error`
 zstyle ':prompt:pure:prompt:*' color cyan
@@ -121,17 +122,16 @@ alias pip="pip3"
 
 export TERM=xterm-256color
 export "LANG=en_US.UTF-8"
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/"
 
 # find out which system type I am currently use
 # use system specific settings
-sysout=$(uname -s)
-if [[ "${sysout}"=="Darwin" ]]
-then
+sysout="$(uname -s)"
+# 字符串比较一定要在=两边加上空格
+if [ "${sysout}" = "Darwin" ]; then
+    export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/"
     alias la="exa --all --long --grid --links"
     alias l="exa --long --header --links --sort=name --git"
     alias pip='/usr/local/opt/python@3.9/bin/pip3'
-elif [[ "${sysout}"=="Linux" ]]
-then
+elif [ "${sysout}" = "Linux" ]; then
     alias l="ls -lAh"
 fi
