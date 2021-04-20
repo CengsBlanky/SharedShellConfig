@@ -27,6 +27,8 @@ call plug#end()
 
 " change default settings {{{
 
+set nocompatible
+set encoding=utf-8
 let mapleader=","
 let maplocalleader=","
 inoremap jk <esc>
@@ -48,25 +50,10 @@ set confirm
 " }}}
 " keymappings {{{
 
-" to use `ALT+{h,j,k,l}` to navigate windows from any mode: {{{
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-\><C-N><C-w>h
-inoremap <A-j> <C-\><C-N><C-w>j
-inoremap <A-k> <C-\><C-N><C-w>k
-inoremap <A-l> <C-\><C-N><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-" }}}
 " use <leader> n to go next buffer
 noremap <leader>b :bn<cr>
 " open file in tab with keys
 noremap <C-n> :tabedit 
-
 " use <leader>w to close current tab
 noremap <leader>w :tabclose<cr>
 " use <leader>t to go next tab
@@ -81,6 +68,26 @@ nnoremap <C-l> guiw
 noremap <A-w> :close<cr>
 " open my vimrc file
 noremap <leader>rc :edit $MYVIMRC<cr>
+" use keystroke to open my vimrc
+nnoremap <F2> :edit $MYVIMRC<CR>
+" <shift-Enter> to create new line in normal mode
+nnoremap <S-Enter> o<Esc>
+" foramt json by python
+nnoremap <F4> :%!python -m json.tool<cr>
+" to use `ALT+{h,j,k,l}` to navigate windows from any mode: {{{
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+" }}}
 
 " }}}
 " window management {{{
@@ -109,20 +116,31 @@ command! Vb normal! <C-v>
 
 " }}}
 " code compile and run {{{
+
+func! CompileRunCode()
+    if filereadable('Makefile')
+        set makeprg=make\ -f\ Makefile
+        exec "wall | !make && make run"
+        return
+    endif
+    if &filetype=="c"
+        exec "write | !gcc -Wall % && a.exe"
+    elseif &filetype=="cpp"
+        exec "write | !g++ -Wall % && a.exe"
+    elseif &filetype=="java"
+        exec "write | !javac % && java %<"
+    elseif &filetype=="python"
+        exec "write | !python %"
+    elseif &filetype=="javascript"
+        exec "write | !node %"
+    endif
+endfunc
+
 augroup exe_code
-    autocmd!
-    " execute python code
-    autocmd FileType python nnoremap <buffer> <localleader>r
-            \ :write<CR> :sp<CR> :term python3 %<CR>
-    " compile and run simgle c file
-    autocmd FileType c nnoremap <buffer> <localleader>r
-            \ :write<CR> :sp<CR> :term gcc -Wall % && ./a.out<CR>
-    " compile and run simgle cpp file
-    autocmd FileType cpp nnoremap <buffer> <localleader>r
-            \ :write<CR> :sp<CR> :term g++ -Wall % && ./a.out<CR>
-    " run shell script
-    autocmd FileType sh nnoremap <buffer> <localleader>r
-            \ :write<CR> :sp<CR> :term sh %<CR>
+autocmd!
+autocmd FileType c,cpp,java,python,javascript 
+        \ nnoremap <buffer> <localleader>r
+        \ :call CompileRunCode()<CR>
 augroup END
 
 " }}}

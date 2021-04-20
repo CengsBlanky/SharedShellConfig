@@ -9,9 +9,7 @@
 		; lines
 		(height . 36) 
 		(left . 720)
-		(top . 12)
-	    )
-	) 
+		(top . 12))) 
     )
 )
 
@@ -28,7 +26,7 @@
 (column-number-mode t)
 (setq inhibit-startup-screen t)
 ;; ---------- highlight paired bracket ----------
-;; (add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
+(add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
 ;; ---------- highlight current line ----------
 (global-hl-line-mode t)
 ;; ---------- doom themes settings ----------
@@ -50,5 +48,9 @@
   
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+;; ---------- mode line ----------
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
 
 (provide 'ui-init)
